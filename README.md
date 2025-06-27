@@ -151,7 +151,7 @@ def show_random_images(data_generator):
 
 show_random_images(train_data)
 
-                                                    4. Title: EfficientNetV2B0-based E-Waste Image Classification (with Fine-Tuning & Evaluation)
+                                                    4. EfficientNetV2B0-based E-Waste Image Classification (with Fine-Tuning & Evaluation)
 ✅ Purpose:
 This code trains an image classification model using EfficientNetV2B0 to classify e-waste images into different categories. It includes:
 
@@ -242,3 +242,224 @@ Final test accuracy (e.g., ✅ Test Accuracy: 93.42%).
 Classification report with precision, recall, f1-score.
 
 Confusion matrix heatmap.                                   
+
+                                              5.EfficientNetV2B0 with Custom Classification Layers (One-Hot Encoded Labels)
+✅ Purpose:
+To build a transfer learning model using EfficientNetV2B0 as a feature extractor and add a custom classification head for a multi-class e-waste image classification task.
+
+🔍 Key Steps:
+Define Number of Classes:
+
+num_classes = train_data.num_classes — determines output layer size based on training data.
+
+Load Base Model:
+
+Uses EfficientNetV2B0 with include_top=False and weights='imagenet'.
+
+Input shape is (224, 224, 3).
+
+Freeze Base Layers:
+
+Prevents the pre-trained layers from updating during initial training.
+
+Add Custom Layers:
+
+GlobalAveragePooling2D to reduce spatial dimensions.
+
+Dropout(0.3) for regularization.
+
+Dense(128, activation='relu') for feature learning.
+
+Another Dropout(0.3) and a final Dense(num_classes, activation='softmax') for classification.
+
+Compile the Model:
+
+Optimizer: Adam(learning_rate=0.001)
+
+Loss: categorical_crossentropy (suitable for one-hot encoded labels)
+
+Metric: accuracy
+
+Model Summary:
+
+Displays all layers, shapes, and total parameters of the full model architecture.
+
+🧾 Output:
+A ready-to-train Keras model with EfficientNetV2B0 as the backbone and a custom dense head for multi-class classification using one-hot labels.
+  
+
+                                                       6. Training Curves and Test Evaluation
+✅ Purpose:
+To visualize the model's learning progress during training and to assess its performance on unseen test data.
+
+🔍 Key Steps:
+Training Curves Plot:
+
+Plots training vs. validation accuracy over epochs.
+
+Plots training vs. validation loss over epochs.
+
+Helps monitor overfitting, underfitting, and overall training behavior.
+
+Test Data Evaluation:
+
+Loads test data using ImageDataGenerator with preprocessing.
+
+Evaluates the trained model on the test set using model.evaluate().
+
+Prints the final test accuracy as a percentage.
+
+🧾 Output:
+Two side-by-side line charts for accuracy and loss.
+
+Printed test accuracy value (e.g., ✅ Test Accuracy: 96.33% or 98.33%).
+
+
+                                                      7. Classification Report and Confusion Matrix Visualization
+✅ Purpose:
+To evaluate the trained model's detailed performance by calculating precision, recall, F1-score, and visualizing misclassifications across e-waste categories.
+
+🔍 Key Steps:
+Model Predictions:
+
+model.predict(test_data) generates probability scores for each class.
+
+np.argmax(..., axis=1) converts these probabilities to predicted class indices.
+
+test_data.classes contains the true class labels.
+
+Classification Report:
+
+classification_report(...) provides:
+
+Precision: How many selected items are relevant.
+
+Recall: How many relevant items are selected.
+
+F1-score: Harmonic mean of precision and recall.
+
+Support: Number of true instances for each class.
+
+Confusion Matrix:
+
+confusion_matrix(...) compares true vs predicted labels to count correct/incorrect predictions per class.
+
+ConfusionMatrixDisplay(...) visualizes this in a grid format.
+
+Green color map (plt.cm.Greens) shows class-wise performance intensity.
+
+Axis labels are rotated for readability.
+
+🧾 Output:
+A printed classification report showing performance metrics per class.
+
+A confusion matrix plot highlighting correct predictions and class confusions visually.
+
+                                                              8. Load, Compile, and Evaluate Trained EfficientNetV2B0 Model
+✅ Purpose:
+To load a pre-trained model, prepare it for evaluation, and assess its performance on a test dataset.
+
+🔍 Key Steps:
+Model Loading:
+
+Loads the saved EfficientNetV2B0 model from the .keras file using load_model(...).
+
+compile=False avoids auto-compiling at load time.
+
+Model Compilation:
+
+Recompiles the model with:
+
+Adam optimizer
+
+sparse_categorical_crossentropy loss (for integer-labeled classes)
+
+accuracy as the evaluation metric
+
+Warning Suppression:
+
+Suppresses non-critical UserWarning messages during evaluation.
+
+Model Evaluation:
+
+Evaluates the model using model.evaluate(...) on the test data.
+
+Captures and prints the final test accuracy and loss.
+
+🧾 Output:
+Confirmation that the model was loaded and compiled successfully.
+
+Test accuracy (e.g., ✅ Test Accuracy: 96.33%)
+
+Test loss (e.g., 📉 Test Loss: 0.2588) printed after evaluation.
+
+
+                                                    8.Title: Visualizing Model Predictions on Sample Test Images
+✅ Purpose:
+To display a few test images along with their predicted and true labels, allowing visual inspection of the model's classification performance.
+
+🔍 Key Steps:
+Get Class Labels:
+
+Retrieves the class names from the test data generator.
+
+Fetch a Batch of Test Images:
+
+Loads one batch of images and corresponding labels from the test set.
+
+Label Format Handling:
+
+Converts one-hot encoded labels to integer class indices if needed.
+
+Make Predictions:
+
+Uses the model to predict class probabilities for each image.
+
+Extracts the predicted class index using argmax.
+
+Display Images with Predictions:
+
+Displays the first 8 images from the batch.
+
+Rescales image pixel values if normalized.
+
+Shows the image using matplotlib with:
+
+True label and Predicted label in the title.
+
+Axes turned off for clarity.
+
+🧾 Output:
+Up to 8 test images, each shown with:
+
+The correct class (✅ True)
+
+The predicted class (🔍 Pred)
+
+Useful for qualitative model evaluation and spotting prediction errors.
+
+
+ (1 upto till 8 )  <------- this work is my week 2 60 % of work 
+
+9. !pip install gradio - install gradio library module to improvized next week  to finish the project work
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
