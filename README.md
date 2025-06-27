@@ -151,4 +151,94 @@ def show_random_images(data_generator):
 
 show_random_images(train_data)
 
-                                            
+                                                    4. Title: EfficientNetV2B0-based E-Waste Image Classification (with Fine-Tuning & Evaluation)
+✅ Purpose:
+This code trains an image classification model using EfficientNetV2B0 to classify e-waste images into different categories. It includes:
+
+Data preprocessing,
+
+Class balancing,
+
+Two-phase training,
+
+Evaluation using test data,
+
+Visualization of training curves and confusion matrix.
+
+🔍 Key Steps:
+1. Setup and Configuration
+Sets up image size, batch size, dataset paths, and epochs.
+
+Uses EfficientNetV2B0 as the base model.
+
+2. Data Preprocessing
+Uses ImageDataGenerator for data augmentation in the training set.
+
+Applies preprocess_input to normalize images.
+
+Loads training, validation, and test images from structured directories.
+
+3. Class Weights
+Calculates balanced class weights to handle imbalanced datasets.
+
+Weights are computed using compute_class_weight based on the training labels.
+
+4. Model Architecture
+Loads EfficientNetV2B0 with pre-trained ImageNet weights (without top).
+
+Adds:
+
+Global Average Pooling,
+
+Dropout (0.3),
+
+Dense output layer with softmax activation.
+
+Compiles with Adam optimizer and sparse categorical cross-entropy loss.
+
+5. Callbacks
+ModelCheckpoint: Saves the best model based on validation accuracy.
+
+EarlyStopping: Stops early if no improvement in val_loss.
+
+ReduceLROnPlateau: Lowers learning rate if val_loss plateaus.
+
+6. Phase 1: Train Top Layers Only
+Freezes base model (feature extractor).
+
+Trains only the top layers for 5 epochs.
+
+7. Phase 2: Fine-Tune Entire Model
+Unfreezes the base model for full fine-tuning.
+
+Re-compiles and trains all layers for 10 more epochs.
+
+8. Training Visualization
+Plots line graphs for:
+
+Training and validation accuracy
+
+Training and validation loss
+
+9. Model Evaluation on Test Data
+Loads the test dataset.
+
+Evaluates test accuracy and loss.
+
+Prints final test accuracy.
+
+10. Performance Metrics
+Predicts test images using the model.
+
+Computes and prints a classification report.
+
+Plots the confusion matrix with class labels.
+
+🧾 Outputs:
+Training and validation accuracy/loss plots.
+
+Final test accuracy (e.g., ✅ Test Accuracy: 93.42%).
+
+Classification report with precision, recall, f1-score.
+
+Confusion matrix heatmap.                                   
